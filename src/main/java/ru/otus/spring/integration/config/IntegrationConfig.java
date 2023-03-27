@@ -19,10 +19,10 @@ public class IntegrationConfig {
                 .publishSubscribeChannel(subscription ->
                         subscription
                                 .subscribe(subflow -> subflow
-                                        .<Bug> filter(this::isActionPartOfDayIsDay)
+                                        .<Bug> filter(Bug::isActionPartOfDayIsDay)
                                         .channel(ACTION_PART_OF_DAY_IS_DAY_CHANNEL))
                                 .subscribe(subflow -> subflow
-                                        .<Bug> filter(this::isActionPartOfDayIsNight)
+                                        .<Bug> filter(Bug::isActionPartOfDayIsNight)
                                         .channel(ACTION_PART_OF_DAY_IS_NIGHT_CHANNEL))
                 )
                 //трансформация в кокон
@@ -30,10 +30,10 @@ public class IntegrationConfig {
                 .publishSubscribeChannel(subscription ->
                         subscription
                                 .subscribe(subflow -> subflow
-                                        .<Bug> filter(this::isActionPartOfDayIsDay)
+                                        .<Bug> filter(Bug::isActionPartOfDayIsDay)
                                         .channel(ACTION_PART_OF_DAY_IS_DAY_CHANNEL))
                                 .subscribe(subflow -> subflow
-                                        .<Bug> filter(this::isActionPartOfDayIsNight)
+                                        .<Bug> filter(Bug::isActionPartOfDayIsNight)
                                         .channel(ACTION_PART_OF_DAY_IS_NIGHT_CHANNEL))
                                 )
                 //трансформация в бабочку
@@ -41,10 +41,10 @@ public class IntegrationConfig {
                 .publishSubscribeChannel(subscription ->
                         subscription
                                 .subscribe(subflow -> subflow
-                                        .<Bug> filter(this::isActionPartOfDayIsDay)
+                                        .<Bug> filter(Bug::isActionPartOfDayIsDay)
                                         .channel(ACTION_PART_OF_DAY_IS_DAY_CHANNEL))
                                 .subscribe(subflow -> subflow
-                                        .<Bug> filter(this::isActionPartOfDayIsNight)
+                                        .<Bug> filter(Bug::isActionPartOfDayIsNight)
                                         .channel(ACTION_PART_OF_DAY_IS_NIGHT_CHANNEL))
                                 )
                 .channel(THRIVE_CHANNEL)
@@ -88,14 +88,6 @@ public class IntegrationConfig {
     @Bean
     public QueueChannel actionPartOfDayIsNight() {
         return MessageChannels.queue(10).get();
-    }
-
-    boolean isActionPartOfDayIsDay(Bug bug) {
-        return bug.getActionPartOfDay() == 1;
-    }
-
-    boolean isActionPartOfDayIsNight(Bug bug) {
-        return bug.getActionPartOfDay() == 0;
     }
 
 }
